@@ -87,6 +87,8 @@ export const StyledImg = styled.img`
     width: 300px;
   }
   transition: width 0.5s;
+  background: transparent;
+
 `;
 
 export const StyledLink = styled.a`
@@ -130,7 +132,7 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mintBunny(mintAmount)
+      .mintPolyRabbit(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
