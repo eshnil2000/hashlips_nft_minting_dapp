@@ -81,11 +81,11 @@ export const connect = () => {
     });
     const CONFIG = await configResponse.json();
 
-    //var { ethereum } = window;
-    var ethereum = await provide();
+    var { ethereum } = window;
+    //var ethereum = await provide();
 
     console.log(ethereum)
-    if (window.ethereum) {
+    if (ethereum) {
       handleEthereum();
     } else {
       window.addEventListener('ethereum#initialized', handleEthereum, {
