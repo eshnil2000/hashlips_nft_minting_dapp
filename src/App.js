@@ -5,10 +5,6 @@ import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import { Chrono } from "react-chrono";
-import tawkTo from "tawkto-react";
-
-const tawkToPropertyId = '61b4df5cc82c976b71c0f1a1'
-const tawkToKey = '76f914601737e27dc3277a51a4d78c0e183a7961'
 
 const items = [{
   title: "Nov '21",
