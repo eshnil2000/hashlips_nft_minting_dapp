@@ -248,9 +248,6 @@ function App() {
     getData();
   }, [blockchain.account]);
 
-  useEffect(() => {
-    tawkTo(tawkToPropertyId, tawkToKey)
-}, [])
 
 useEffect(() => {
   var Tawk_API = Tawk_API || {},
