@@ -4,6 +4,43 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import { Chrono } from "react-chrono";
+import tawkTo from "tawkto-react";
+
+const tawkToPropertyId = '61b4df5cc82c976b71c0f1a1'
+const tawkToKey = '76f914601737e27dc3277a51a4d78c0e183a7961'
+
+const items = [{
+  title: "Nov '21",
+  cardTitle: "Design",
+  cardSubtitle:"Art Work + Smart Contract + Minting Site",
+  cardDetailedText: "Design Art Work Collection, develop and test smart contracts/API metdata server design, random art generation automation  integration into OpenSea Testnets",
+},
+{
+  title: "Dec '21",
+  cardTitle: "Mint Period ",
+  cardSubtitle:"Early Access Pre-Sale Mint offering.",
+  cardDetailedText: "For our Approved community members, a chance to  adopt a few PolyRabbits early on at an affordable price. Images may not be revealed just yet",
+},
+{
+  title: "Q1 '22",
+  cardTitle: "Public Sale",
+  cardSubtitle:"Public sale open, visible on OpenSea, community building events",
+  cardDetailedText: "",
+},
+{
+  title: "Q2 '22",
+  cardTitle: "Air Drops",
+  cardSubtitle:"Air Drop follow on collection to our community, workshop events/virtual meetups",
+  cardDetailedText: "",
+},
+{
+  title: "2H '22",
+  cardTitle: "Roadmap update",
+  cardSubtitle:"Modify roadmap based on community inputs",
+  cardDetailedText: "",
+},
+];
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -72,6 +109,17 @@ export const StyledLogo = styled.img`
   }
   transition: width 0.5s;
   transition: height 0.5s;
+  background: transparent;
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
+  @keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); } 
 `;
 
 export const StyledImg = styled.img`
@@ -88,6 +136,15 @@ export const StyledImg = styled.img`
   }
   transition: width 0.5s;
   background: transparent;
+  animation-name: floating2;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
+  @keyframes floating2 {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); } 
 
 `;
 
@@ -164,8 +221,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
+    if (newMintAmount > 20) {
+      newMintAmount = 20;
     }
     setMintAmount(newMintAmount);
   };
@@ -195,15 +252,35 @@ function App() {
     getData();
   }, [blockchain.account]);
 
+  useEffect(() => {
+    tawkTo(tawkToPropertyId, tawkToKey)
+}, [])
+
+useEffect(() => {
+  var Tawk_API = Tawk_API || {},
+    Tawk_LoadStart = new Date();
+  (function () {
+    var s1 = document.createElement("script"),
+      s0 = document.getElementsByTagName("script")[0];
+    s1.async = true;
+    s1.src = "https://embed.tawk.to/61b4df5cc82c976b71c0f1a1/1fml8h085";
+    s1.charset = "UTF-8";
+    s1.setAttribute("crossorigin", "*");
+    s0.parentNode.insertBefore(s1, s0);
+  })();
+}, []);
+
   return (
     <s.Screen>
+      
       <s.Container
         flex={1}
         ai={"center"}
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+        background-size= {"contain"}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+        <StyledLogo  alt={"logo"} src={"/config/images/logo.gif"} />
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
@@ -381,15 +458,73 @@ function App() {
           </s.Container>
         </ResponsiveWrapper>
         <s.SpacerMedium />
+        
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+        <s.TextTitle
+              style={{
+                textAlign: "center",
+                fontSize: 50,
+                fontWeight: "bold",
+                color: "var(--text)",
+              }}
+            >
+              The Story So Far...
+            </s.TextTitle>
+
+            </s.Container>
+            <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
+        <s.Container jc={"center"} ai={"center"} style={{ width: "50%" }} flex={2}
+            jc={"center"}
+            ai={"center"}
+            style={{
+              backgroundColor: "var(--accent)",
+              padding: 24,
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+            }}>
+          <s.TextDescription
+            style={{
+              textAlign: "left",
+              color: "var(--accent-text)",
+              width: "50%"
+            }}
+          >
+            A family of 26 Rabbits escaped from a Rabbit Farm , sought refuge on the Polygon Blockchain, to escape predators like owls, hawks, eagles, falcons, wild dogs, feral cats and ground squirrels.<br></br><br></br> Many of them were severely injured . Others came out in relatively good shape. A few adopted human disguises and accessories to hide. They soon multiplied. And now, there's 13,000 of them. A strange virus now prevents them from multiplying further, they're looking to be adopted by you till they find permanent shelter (maybe with you?). <br></br><br></br>These 13,000 PolyRabbits multipled but are all unique in color pallete and each have varying rare features. Try collecting a whole set of 26, Good Luck!<br></br><br></br> Initially each PolyRabbit can be minted for 2 Matic, as they get adopted, the Mint price may increase
+          </s.TextDescription>
+          <s.SpacerSmall />
+
+          
+          
+        </s.Container>
+        </ResponsiveWrapper>
+
+        <s.SpacerMedium />
+       
+        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+        <s.TextTitle
+              style={{
+                textAlign: "center",
+                fontSize: 50,
+                fontWeight: "bold",
+                color: "var(--text)",
+              }}
+            >
+              ROADMAP
+            </s.TextTitle>
+            
+            <Chrono items={items} mode="HORIZONTAL"/>
+
+            <s.Container jc={"center"} ai={"center"} style={{ width: "90%" }}>
           <s.TextDescription
             style={{
               textAlign: "center",
               color: "var(--primary-text)",
+              backgroundColor: "var(--secondary)",
             }}
           >
             Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Testnet) and the correct address. Please note:
+            {CONFIG.NETWORK.NAME}) and the correct address. Please note:
             Once you make the purchase, you cannot undo this action.
           </s.TextDescription>
           <s.SpacerSmall />
@@ -404,6 +539,8 @@ function App() {
             gas limit.
           </s.TextDescription>
         </s.Container>
+            </s.Container>
+
       </s.Container>
     </s.Screen>
   );

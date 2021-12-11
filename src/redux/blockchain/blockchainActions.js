@@ -4,6 +4,38 @@ import Web3 from "web3";
 // log
 import { fetchData } from "../data/dataActions";
 
+import detectEthereumProvider from '@metamask/detect-provider'
+
+async function provide (){
+  var provider = await detectEthereumProvider()
+
+    if (provider) {
+      var { ethereum } = window;
+      console.log(ethereum);
+      
+      console.log('Ethereum successfully detected!', provider)
+    
+      // From now on, this should always be true:
+      // provider === window.ethereum
+    
+      // Access the decentralized web!
+    
+      // Legacy providers may only have ethereum.sendAsync
+      const chainId = await provider.request({
+        method: 'eth_chainId'
+      })
+      console.log(chainId)
+      return provider;
+    } else {
+    
+      // if the provider is not detected, detectEthereumProvider resolves to null
+      console.error('Please install MetaMask!', error)
+      return ethereum;
+    }
+    }
+provide();
+
+
 const connectRequest = () => {
   return {
     type: "CONNECTION_REQUEST",
@@ -48,7 +80,11 @@ export const connect = () => {
       },
     });
     const CONFIG = await configResponse.json();
-    const { ethereum } = window;
+
+    //var { ethereum } = window;
+    var ethereum = await provide();
+    console.log(ethereum)
+
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (metamaskIsInstalled) {
       Web3EthContract.setProvider(ethereum);
