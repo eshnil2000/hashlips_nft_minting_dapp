@@ -466,7 +466,7 @@ useEffect(() => {
 
             </s.Container>
             <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-        <s.Container jc={"center"} ai={"center"} style={{ width: "50%" }} flex={2}
+        <s.Container jc={"center"} ai={"center"} style={{ width: "100%" }} flex={2}
             jc={"center"}
             ai={"center"}
             style={{
@@ -480,7 +480,7 @@ useEffect(() => {
             style={{
               textAlign: "left",
               color: "var(--accent-text)",
-              width: "50%"
+              width: "100%"
             }}
           >
             A family of 26 Rabbits escaped from a Rabbit Farm , sought refuge on the Polygon Blockchain, to escape predators like owls, hawks, eagles, falcons, wild dogs, feral cats and ground squirrels.<br></br><br></br> Many of them were severely injured . Others came out in relatively good shape. A few adopted human disguises and accessories to hide. They soon multiplied. And now, there's 13,000 of them. A strange virus now prevents them from multiplying further, they're looking to be adopted by you till they find permanent shelter (maybe with you?). <br></br><br></br>These 13,000 PolyRabbits multipled but are all unique in color pallete and each have varying rare features. Try collecting a whole set of 26, Good Luck!<br></br><br></br> Initially each PolyRabbit can be minted for 2 Matic, as they get adopted, the Mint price may increase
