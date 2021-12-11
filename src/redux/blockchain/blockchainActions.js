@@ -33,7 +33,7 @@ async function provide (){
       return ethereum;
     }
     }
-provide();
+//provide();
 
 
 const connectRequest = () => {
@@ -83,9 +83,69 @@ export const connect = () => {
 
     //var { ethereum } = window;
     var ethereum = await provide();
-    console.log(ethereum)
 
-    const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
+    console.log(ethereum)
+    if (window.ethereum) {
+      handleEthereum();
+    } else {
+      window.addEventListener('ethereum#initialized', handleEthereum, {
+        once: true,
+      });
+    
+      // If the event is not dispatched by the end of the timeout,
+      // the user probably doesn't have MetaMask installed.
+      setTimeout(handleEthereum, 3000); // 3 seconds
+    }
+    
+    async function handleEthereum() {
+      const { ethereum } = window;
+      if (ethereum && ethereum.isMetaMask) {
+        console.log('Ethereum successfully detected!');
+        // Access the decentralized web!
+        const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
+    if (metamaskIsInstalled) {
+      Web3EthContract.setProvider(ethereum);
+      let web3 = new Web3(ethereum);
+      try {
+        const accounts = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const networkId = await ethereum.request({
+          method: "net_version",
+        });
+        if (networkId == CONFIG.NETWORK.ID) {
+          const SmartContractObj = new Web3EthContract(
+            abi,
+            CONFIG.CONTRACT_ADDRESS
+          );
+          dispatch(
+            connectSuccess({
+              account: accounts[0],
+              smartContract: SmartContractObj,
+              web3: web3,
+            })
+          );
+          // Add listeners start
+          ethereum.on("accountsChanged", (accounts) => {
+            dispatch(updateAccount(accounts[0]));
+          });
+          ethereum.on("chainChanged", () => {
+            window.location.reload();
+          });
+          // Add listeners end
+        } else {
+          dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
+        }
+      } catch (err) {
+        dispatch(connectFailed("Something went wrong."));
+      }
+    }
+      } else {
+        console.log('Please install MetaMask!');
+      }
+    }
+
+/*     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (metamaskIsInstalled) {
       Web3EthContract.setProvider(ethereum);
       let web3 = new Web3(ethereum);
@@ -124,7 +184,7 @@ export const connect = () => {
       }
     } else {
       dispatch(connectFailed("Install Metamask."));
-    }
+    } */
   };
 };
 
