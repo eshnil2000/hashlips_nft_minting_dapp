@@ -42,6 +42,27 @@ const items = [{
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
+  const Button = styled.a`
+    text-decoration:none;
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--secondary);
+    padding: 10px;
+    font-weight: bold;
+    color: var(--secondary-text);
+    width: 100px;
+    cursor: pointer;
+    box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+    -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+    -moz-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+    :active {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+    }
+  `;
+
 export const StyledButton = styled.button`
   padding: 10px;
   border-radius: 50px;
@@ -86,6 +107,7 @@ export const StyledRoundButton = styled.button`
     -moz-box-shadow: none;
   }
 `;
+
 
 export const ResponsiveWrapper = styled.div`
   display: flex;
@@ -157,6 +179,8 @@ function App() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
+  const [ethProvider, setethProvider] = useState(false);
+
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -248,6 +272,19 @@ function App() {
   useEffect(() => {
     getData();
   }, [blockchain.account]);
+
+  useEffect(() => {
+    const { ethereum } = window;
+      const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
+      if (metamaskIsInstalled) {
+        console.log("found ethereum provider")
+        setethProvider(true)
+      }
+      else{
+        console.log("no browser ethereum provider")
+        setethProvider(false)
+      }
+  })
 
 
 useEffect(() => {
@@ -359,20 +396,25 @@ useEffect(() => {
                     </s.TextDescription>
                     <s.SpacerSmall />
                     
-                    <BrowserView>
-                    <StyledButton
-                      onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(connect());
-                        getData();
-                      }}
-                    >
-                      CONNECT
-                    </StyledButton>
-                    </BrowserView>
-                    <MobileView>
-                      <h1>This is rendered only on mobile</h1>
-                    </MobileView>
+                    
+                    {isBrowser && ethProvider?
+                    
+                      <StyledButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          dispatch(connect());
+                          getData();
+                        }}
+                      >
+                        CONNECT
+                      </StyledButton>
+                      :
+                      
+                      <Button href="https://metamask.app.link/dapp/cryptobunnies.dappsuni.com" class="button">Open Metamask</Button>
+
+                    }
+
+
                     
                     {blockchain.errorMsg !== "" ? (
                       <>
