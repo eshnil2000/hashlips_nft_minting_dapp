@@ -410,7 +410,19 @@ useEffect(() => {
                       </StyledButton>
                       :
                       
-                      <Button href="https://metamask.app.link/dapp/cryptobunnies.dappsuni.com" class="button">Open Metamask</Button>
+                      <Button href="https://metamask.app.link/dapp/polyrabbitsm.dappsuni.com" class="button">Open Metamask</Button>
+
+                      /* FOR THE MOBILE VERSION OF SITE polyrabbitsm.dappsuni.com, instead of Button, show the same Connect
+                      <StyledButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          dispatch(connect());
+                          getData();
+                        }}
+                      >
+                        CONNECT
+                      </StyledButton> */
+
 
                     }
 
@@ -556,7 +568,7 @@ useEffect(() => {
               ROADMAP
             </s.TextTitle>
             
-            <Chrono items={items} mode="HORIZONTAL"/>
+            <Chrono items={items} mode="VERTICAL" style={{ display: "flex",width: "90%" }}/>
 
             <s.Container jc={"center"} ai={"center"} style={{ width: "90%" }}>
           <s.TextDescription
