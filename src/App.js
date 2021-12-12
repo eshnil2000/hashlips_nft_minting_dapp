@@ -5,6 +5,7 @@ import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import { Chrono } from "react-chrono";
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 const items = [{
   title: "Nov '21",
@@ -357,6 +358,8 @@ useEffect(() => {
                       Connect to the {CONFIG.NETWORK.NAME} network
                     </s.TextDescription>
                     <s.SpacerSmall />
+                    
+                    <BrowserView>
                     <StyledButton
                       onClick={(e) => {
                         e.preventDefault();
@@ -366,6 +369,11 @@ useEffect(() => {
                     >
                       CONNECT
                     </StyledButton>
+                    </BrowserView>
+                    <MobileView>
+                      <h1>This is rendered only on mobile</h1>
+                    </MobileView>
+                    
                     {blockchain.errorMsg !== "" ? (
                       <>
                         <s.SpacerSmall />
